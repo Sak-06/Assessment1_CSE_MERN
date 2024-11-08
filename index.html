@@ -3,47 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Resume Builder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            color: #555;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="email"], input[type="tel"], textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+        img {
+            max-width: 150px;
+            border-radius: 50%;
+            margin-top: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .resume-preview {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f3f3f3;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .resume-preview img {
+            max-width: 100px;
+            margin-bottom: 10px;
+        }
+        .resume-preview h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .resume-preview p {
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
-    <h1 style="color: blue; font-weight: 1500; text-align: center;">Resume Builder</h1>
-    <div class="enteries">
-    <fieldset id="resume">
-    <form>
-        Name:
-        <br><input type="text" name="name" id="name"><br>
-        Email:
-        <br><input type="email" name="emaiid" id="emailid"><br>
-        Phone:
-        <br><input type="tel" name="phnum" id="phnum"><br>
-        LinkedIn Id:
-        <br><input type="url" name="linkid" id="linkid"><br>
-        Github Id:
-        <br><input type="url" name="gitid" id="gitid"><br>
-        Experience:
-        <br><input type="text" name="exp" id="exp"><br>
-        Education:
-        <br><input type="text" name="ed" id="ed"><br><br>
-        Upload Photo:
-        <input type="file" name="photo" id="photo"><br><br>
-        <button id="submit" onclick="generateresume()">Generate Resume</button>
-        </fieldset>
-    </form>
-</div>
-    <div class="display" id="resume-output">
-            <h2>Generated Resume</h2>
-            <p><strong>Name:</strong> <span id="output-name"></span></p>
-            <p><strong>Email:</strong> <span id="output-email"></span></p>
-            <p><strong>Phone:</strong> <span id="output-phone"></span></p>
-            <p><strong>LinkedIn:</strong> <span id="output-linkedin"></span></p>
-            <p><strong>GitHub:</strong> <span id="output-github"></span></p>
-            <p><strong>Experience:</strong> <span id="output-experience"></span></p>
-            <p><strong>Education:</strong> <span id="output-education"></span></p>
-            <p><strong>Photo:</strong> <img id="output-photo" alt="Uploaded photo" style="max-width: 100px; display: none;"></p>
-          </div>
+    <div class="container" id="resumeForm">
+        <h1>Resume Builder</h1>
+        <div class="section">
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="Enter your full name">
+
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email">
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" placeholder="Enter your phone number">
+
+            <label for="Linkurl">LinkedIn Profile</label>
+            <input type="text" id="Linkurl" placeholder="Enter your LinkedIn URL">
+
+            <label for="Giturl">GitHub Profile</label>
+            <input type="text" id="Giturl" placeholder="Enter your GitHub URL">
+
+            <label for="workDescription">Work Experience</label>
+            <textarea id="workDescription" rows="4" placeholder="Enter your work experience"></textarea>
+
+            <label for="Education">Education</label>
+            <textarea id="Education" rows="4" placeholder="Enter your education details"></textarea>
+
+            <label for="photo">Upload Profile Photo</label>
+            <input type="file" id="photo" accept="image/*" onchange="previewPhoto(event)">
+            <img id="photoPreview" alt="Profile Photo Preview" style="display: none;">
+
+            <button onclick="previewResume()">Preview Resume</button>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <div class="resume-preview" id="resumePreview">
+        <img id="previewPhoto" alt="Profile Photo">
+        <h2 id="previewName"></h2>
+        <p id="previewEmail"></p>
+        <p id="previewPhone"></p>
+        <p><strong>LinkedIn Profile:</strong> <span id="previewlurl"></span></p>
+        <p><strong>GitHub Profile:</strong> <span id="previewgiturl"></span></p>
+        <p><strong>Work Experience:</strong> <span id="previewWE"></span></p>
+        <h3>Education</h3>
+        <p id="previewEducation"></p>
+    </div>
+
+    <script>
+        function previewPhoto(event) {
+            const photoPreview = document.getElementById('photoPreview');
+            photoPreview.src = URL.createObjectURL(event.target.files[0]);
+            photoPreview.style.display = 'block';
+        }
+
+        function previewResume() {
+            
+            document.getElementById("previewName").innerText = document.getElementById("name").value;
+            document.getElementById("previewEmail").innerText = document.getElementById("email").value;
+            document.getElementById("previewPhone").innerText = document.getElementById("phone").value;
+            document.getElementById("previewlurl").innerText = document.getElementById("Linkurl").value;
+            document.getElementById("previewgiturl").innerText = document.getElementById("Giturl").value;
+            document.getElementById("previewWE").innerText = document.getElementById("workDescription").value;
+            document.getElementById("previewEducation").innerText = document.getElementById("Education").value;
+            
+            
+            const previewPhoto = document.getElementById('previewPhoto');
+            const photoInput = document.getElementById('photo');
+            if (photoInput.files[0]) {
+                previewPhoto.src = URL.createObjectURL(photoInput.files[0]);
+                previewPhoto.style.display = 'block';
+            } else {
+                previewPhoto.style.display = 'none';
+            }
+
+        
+            document.getElementById("resumeForm").style.display = "none";
+            document.getElementById("resumePreview").style.display = "block";
+        }
+    </script>
 </body>
 </html>
