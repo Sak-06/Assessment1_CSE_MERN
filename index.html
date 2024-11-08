@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 style="color: blue; font-weight: 1500; text-align: center;">Resume Builder</h1>
+    <div class="enteries">
+    <fieldset id="resume">
+    <form>
+        Name:
+        <br><input type="text" name="name" id="name"><br>
+        Email:
+        <br><input type="email" name="emaiid" id="emailid"><br>
+        Phone:
+        <br><input type="tel" name="phnum" id="phnum"><br>
+        LinkedIn Id:
+        <br><input type="url" name="linkid" id="linkid"><br>
+        Github Id:
+        <br><input type="url" name="gitid" id="gitid"><br>
+        Experience:
+        <br><input type="text" name="exp" id="exp"><br>
+        Education:
+        <br><input type="text" name="ed" id="ed"><br><br>
+        Upload Photo:
+        <input type="file" name="photo" id="photo"><br><br>
+        <button id="submit" onclick="generateresume()">Generate Resume</button>
+        </fieldset>
+    </form>
+</div>
+    <div class="display">
+        <h2></h2>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

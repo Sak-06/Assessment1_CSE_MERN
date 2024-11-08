@@ -1,0 +1,20 @@
+#resume{
+    height:65%;
+    width: 55%;
+    margin-left: 25%;
+    margin-right: 15%;
+}
+.enteries{
+    align-items: center;
+}
+#resume input{
+    width: 100%;
+}
+#resume button{
+    width: 100%;
+    background-color: blue;
+    color: white;
+}
+#resume h2{
+    text-align: center;
+}
